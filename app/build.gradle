@@ -1,10 +1,11 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "com.demo.changeskin"
+//        applicationId "com.demo.changeskin"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -18,6 +19,44 @@ android {
         }
     }
 }
+
+//上传到nexus
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "http://localhost:8081/repository/com.my.test/") {
+            authentication(userName: "test", password: "test")
+        }
+        pom.version = "0.1.1"
+        pom.artifactId = "Demo_ChangeSkin"
+        pom.groupId = "com.my.test"
+    }
+}
+
+//上传到nexus
+//def artifactId = "my-artifact"
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: "http://localhost:8081/repository/com.my.test/") {
+//                authentication(userName: "test", password: "test")
+//            }
+//            pom.version = "$project.version"
+//            pom.artifactId = "$artifactId"
+//            pom.groupId = "$project.group"
+//        }
+//    }
+//}
+
+//上传到nexus
+//repositories {
+//    maven {
+//        credentials {
+//            username 'test'
+//            password 'test'
+//        }
+//        url 'http://localhost:8081/repository/com.my.test/'
+//    }
+//}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
