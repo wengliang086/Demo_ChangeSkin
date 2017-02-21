@@ -1,4 +1,4 @@
-package com.demo.changeskin.skin;
+package com.demo.changeskin;
 
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
