@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/id_action_plugin_change"
+        android:orderInCategory="100"
+        android:title="插件换肤"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/id_action_default"
+        android:orderInCategory="100"
+        android:title="恢复默认"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/id_action_test_res"
+        android:orderInCategory="100"
+        android:title="测试资源替换"
+        app:showAsAction="never" />
+
+</menu>

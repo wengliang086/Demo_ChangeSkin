@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public class MenuLeftFragment extends Fragment {
+public class MenuLeftFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -19,25 +19,27 @@ public class MenuLeftFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.id_btn_default).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "default", Toast.LENGTH_SHORT).show();
-                ((MainActivity) getActivity()).resetDefault();
-            }
-        });
-        view.findViewById(R.id.id_btn_inside).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "inside", Toast.LENGTH_SHORT).show();
-            }
-        });
-        view.findViewById(R.id.id_btn_plugin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "plugin", Toast.LENGTH_SHORT).show();
-                ((MainActivity) getActivity()).loadPlagin();
-            }
-        });
+        view.findViewById(R.id.id_rl_innerchange01).setOnClickListener(this);
+        view.findViewById(R.id.id_rl_innerchange02).setOnClickListener(this);
+        view.findViewById(R.id.id_restore).setOnClickListener(this);
+        view.findViewById(R.id.id_changeskin).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.id_rl_innerchange01:
+                Toast.makeText(getActivity(), "id_rl_innerchange01", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.id_rl_innerchange02:
+                Toast.makeText(getActivity(), "id_rl_innerchange02", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.id_restore:
+                Toast.makeText(getActivity(), "id_restore", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.id_changeskin:
+                Toast.makeText(getActivity(), "id_changeskin", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

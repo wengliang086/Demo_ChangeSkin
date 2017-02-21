@@ -1,34 +1,31 @@
 package com.demo.changeskin;
 
-import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
-    private TextView mTextView;
-    private ImageView mImageView;
-    private Button startTestFactoryBtn;
 
     private String mSkinPluginPath = Environment.getExternalStorageDirectory() + File.separator + "Skin_Plugin.apk";
-    private String mSkinPluginPackage = "com.demo.skinplugin";
+    private String[] mDatas = new String[]{"Activity", "Service", "Activity", "Service", "Activity", "Service", "Activity", "Service"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,19 +74,23 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        startTestFactoryBtn.setOnClickListener(new View.OnClickListener() {
+        ListView listView = (ListView) findViewById(R.id.id_listview);
+        listView.setAdapter(new ArrayAdapter<String>(this, -1, mDatas) {
+            @NonNull
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TestFactoryActivity.class));
+            public View getView(int position, View convertView, ViewGroup parent) {
+                if (convertView == null) {
+                    convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.item, parent, false);
+                }
+                TextView tv = (TextView) convertView.findViewById(R.id.id_tv_title);
+                tv.setText(getItem(position));
+                return convertView;
             }
         });
     }
 
     private void initView() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerLayout);
-        mTextView = (TextView) findViewById(R.id.id_text_view);
-        mImageView = (ImageView) findViewById(R.id.id_imageView);
-        startTestFactoryBtn = (Button) findViewById(R.id.id_start_test_factory);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.id_left_menu_container);
@@ -100,31 +101,51 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void resetDefault() {
-        mImageView.setImageResource(R.mipmap.ic_launcher);
+//    public void loadPlagin() {
+//        try {
+//            AssetManager assetManager = AssetManager.class.newInstance();
+//            Method addAssetPathMethod = assetManager.getClass().getMethod("addAssetPath", String.class);
+//            addAssetPathMethod.invoke(assetManager, mSkinPluginPath);
+//
+//            Resources superResources = getResources();
+//            Resources resources = new Resources(assetManager, superResources.getDisplayMetrics(), superResources.getConfiguration());
+//            ResourcesManager resourcesManager = new ResourcesManager(resources, mSkinPluginPackage);
+//            Drawable drawable = resourcesManager.getDrawableByResName("skin_background");
+//            if (drawable != null) {
+//                mImageView.setImageDrawable(drawable);
+//            }
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
-    public void loadPlagin() {
-        try {
-            AssetManager assetManager = AssetManager.class.newInstance();
-            Method addAssetPathMethod = assetManager.getClass().getMethod("addAssetPath", String.class);
-            addAssetPathMethod.invoke(assetManager, mSkinPluginPath);
-
-            Resources superResources = getResources();
-            Resources resources = new Resources(assetManager, superResources.getDisplayMetrics(), superResources.getConfiguration());
-            ResourcesManager resourcesManager = new ResourcesManager(resources, mSkinPluginPackage);
-            Drawable drawable = resourcesManager.getDrawableByResName("skin_background");
-            if (drawable != null) {
-                mImageView.setImageDrawable(drawable);
-            }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.id_action_plugin_change:
+                Toast.makeText(MainActivity.this, "id_action_plugin_change", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.id_action_default:
+                Toast.makeText(MainActivity.this, "id_action_default", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.id_action_test_res:
+                Toast.makeText(MainActivity.this, "id_action_test_res", Toast.LENGTH_SHORT).show();
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 }
