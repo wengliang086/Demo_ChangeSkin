@@ -18,9 +18,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.demo.changeskin.base.BaseSkinActivity;
+
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseSkinActivity {
 
     private DrawerLayout mDrawerLayout;
 
@@ -100,31 +102,6 @@ public class MainActivity extends AppCompatActivity {
             ft.commit();
         }
     }
-
-//    public void loadPlagin() {
-//        try {
-//            AssetManager assetManager = AssetManager.class.newInstance();
-//            Method addAssetPathMethod = assetManager.getClass().getMethod("addAssetPath", String.class);
-//            addAssetPathMethod.invoke(assetManager, mSkinPluginPath);
-//
-//            Resources superResources = getResources();
-//            Resources resources = new Resources(assetManager, superResources.getDisplayMetrics(), superResources.getConfiguration());
-//            ResourcesManager resourcesManager = new ResourcesManager(resources, mSkinPluginPackage);
-//            Drawable drawable = resourcesManager.getDrawableByResName("skin_background");
-//            if (drawable != null) {
-//                mImageView.setImageDrawable(drawable);
-//            }
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
