@@ -29,13 +29,13 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.id_rl_innerchange01:
-                Toast.makeText(getActivity(), "id_rl_innerchange01", Toast.LENGTH_SHORT).show();
+                SkinManager.getInstance().changeSkin("red");
                 break;
             case R.id.id_rl_innerchange02:
-                Toast.makeText(getActivity(), "id_rl_innerchange02", Toast.LENGTH_SHORT).show();
+                SkinManager.getInstance().changeSkin("green");
                 break;
             case R.id.id_restore:
-                Toast.makeText(getActivity(), "id_restore", Toast.LENGTH_SHORT).show();
+                SkinManager.getInstance().removeAnySkin();
                 break;
             case R.id.id_changeskin:
                 Toast.makeText(getActivity(), "id_changeskin", Toast.LENGTH_SHORT).show();

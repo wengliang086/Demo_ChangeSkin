@@ -55,6 +55,9 @@ public class SkinManager {
     }
 
     public ResourcesManager getResourcesManager() {
+        if (TextUtils.isEmpty(mCurPluginPath)) {//如果不是插件换肤
+            return new ResourcesManager(mContext.getResources(), mContext.getPackageName(), mSuffix);
+        }
         return resourcesManager;
     }
 
@@ -84,7 +87,7 @@ public class SkinManager {
 
         Resources superResources = mContext.getResources();
         Resources resources = new Resources(assetManager, superResources.getDisplayMetrics(), superResources.getConfiguration());
-        resourcesManager = new ResourcesManager(resources, skinPkgName);
+        resourcesManager = new ResourcesManager(resources, skinPkgName, suffix);
 
         mCurPluginPath = skinPath;
         mCurPluginPkg = skinPkgName;
@@ -169,6 +172,25 @@ public class SkinManager {
     }
 
     public boolean needChangeSkin() {
-        return !TextUtils.isEmpty(mCurPluginPath);
+        return !TextUtils.isEmpty(mCurPluginPath) || !TextUtils.isEmpty(mSuffix);
+    }
+
+    public void changeSkin(String suffix) {
+        clearPluginInfo();
+        mSuffix = suffix;
+        mPrefUtils.putSuffix(suffix);
+        notifyChangeListeners();
+    }
+
+    private void clearPluginInfo() {
+        mCurPluginPath = null;
+        mCurPluginPkg = null;
+        mSuffix = null;
+        mPrefUtils.clear();
+    }
+
+    public void removeAnySkin() {
+        clearPluginInfo();
+        notifyChangeListeners();
     }
 }

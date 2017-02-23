@@ -1,5 +1,6 @@
 package com.demo.changeskin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -134,10 +135,10 @@ public class MainActivity extends BaseSkinActivity {
                 });
                 break;
             case R.id.id_action_default:
-                Toast.makeText(MainActivity.this, "id_action_default", Toast.LENGTH_SHORT).show();
+                SkinManager.getInstance().removeAnySkin();
                 break;
             case R.id.id_action_test_res:
-                Toast.makeText(MainActivity.this, "id_action_test_res", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, TestFactoryActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
