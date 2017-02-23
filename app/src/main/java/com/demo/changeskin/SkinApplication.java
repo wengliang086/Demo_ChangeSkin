@@ -11,5 +11,6 @@ public class SkinApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        SkinManager.getInstance().init(getApplicationContext());
     }
 }

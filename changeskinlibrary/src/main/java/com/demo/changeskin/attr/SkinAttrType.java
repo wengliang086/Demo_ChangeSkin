@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.demo.changeskin.ResourcesManager;
+import com.demo.changeskin.SkinManager;
 
 /**
  * Created by Administrator on 2017/2/21.
@@ -62,6 +63,6 @@ public enum SkinAttrType {
     public abstract void apply(View view, String resName);
 
     ResourcesManager getResourcesManager() {
-        return null;
+        return SkinManager.getInstance().getResourcesManager();
     }
 }

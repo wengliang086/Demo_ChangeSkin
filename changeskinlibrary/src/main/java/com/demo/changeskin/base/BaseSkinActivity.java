@@ -52,7 +52,7 @@ public class BaseSkinActivity extends AppCompatActivity implements ISkinChangedL
                     if (sCreateViewMethod == null) {
                         sCreateViewMethod = delegate.getClass().getMethod("createView", sCreateViewSignature);
                     }
-                    view = (View) sCreateViewMethod.invoke(delegate, parent, context, attrs);
+                    view = (View) sCreateViewMethod.invoke(delegate, parent, name, context, attrs);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -80,8 +80,10 @@ public class BaseSkinActivity extends AppCompatActivity implements ISkinChangedL
             }
             skinViews.add(new SkinView(view, attrs));
         }
-        //当前是否需要换肤，根据上传状态的存储
-
+        //当前是否需要换肤，根据上次状态的存储
+        if (SkinManager.getInstance().needChangeSkin()) {
+            SkinManager.getInstance().apply(this);
+        }
     }
 
     @Override

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.demo.changeskin.base.BaseSkinActivity;
+import com.demo.changeskin.callback.ISkinChangingCallback;
 
 import java.io.File;
 
@@ -26,7 +27,8 @@ public class MainActivity extends BaseSkinActivity {
 
     private DrawerLayout mDrawerLayout;
 
-    private String mSkinPluginPath = Environment.getExternalStorageDirectory() + File.separator + "Skin_Plugin.apk";
+    private String mSkinPluginPath = Environment.getExternalStorageDirectory() + File.separator + "night_plugin.apk";
+    private String mSkinPluginPkg = "com.zhy.plugin";
     private String[] mDatas = new String[]{"Activity", "Service", "Activity", "Service", "Activity", "Service", "Activity", "Service"};
 
     @Override
@@ -114,7 +116,22 @@ public class MainActivity extends BaseSkinActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.id_action_plugin_change:
-                Toast.makeText(MainActivity.this, "id_action_plugin_change", Toast.LENGTH_SHORT).show();
+                SkinManager.getInstance().changeSkin(mSkinPluginPath, mSkinPluginPkg, new ISkinChangingCallback() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Toast.makeText(MainActivity.this, "换肤失败", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Toast.makeText(MainActivity.this, "换肤成功", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.id_action_default:
                 Toast.makeText(MainActivity.this, "id_action_default", Toast.LENGTH_SHORT).show();
